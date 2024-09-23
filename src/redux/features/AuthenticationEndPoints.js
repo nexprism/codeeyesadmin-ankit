@@ -11,7 +11,7 @@ export const adminAuthenticationendPoints = catalogueSlice.injectEndpoints({
             })
         }),
         getUser: builder.query({
-            query: () => `/get-admin-profile`
+            query: () => `/get-user`
         }),
         updateAdminProfile: builder.mutation({
             query: (formData) => ({

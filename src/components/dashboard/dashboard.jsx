@@ -15,26 +15,26 @@ import { useGetAllCompaniesQuery, useGetAllPlansQuery } from "../../redux/featur
 import { useGetAllEmployQuery } from "../../redux/features/employEndPoints";
 
 export default function Dashboard() {
-  const { data, } =
-    useGetAllCompaniesQuery();
-  const { data: userData, } =
-    useGetAllEmployQuery();
-  const { data: allplans } =
-    useGetAllPlansQuery();
+  // const { data, } =
+  //   useGetAllCompaniesQuery();
+  // const { data: userData, } =
+  //   useGetAllEmployQuery();
+  // const { data: allplans } =
+  //   useGetAllPlansQuery();
 
-  const allOrderDetail = data?.data
-  const allusers = userData?.data
-
-
-  const plans = allplans?.data
+  // const allOrderDetail = data?.data
+  // const allusers = userData?.data
 
 
-  const incomeData = allOrderDetail?.map((item) => item.amount) || [];
-  let income = 0;
+  // const plans = allplans?.data
 
-  for (const key in incomeData) {
-    income += incomeData[key];
-  }
+
+  // const incomeData = allOrderDetail?.map((item) => item.amount) || [];
+  // let income = 0;
+
+  // for (const key in incomeData) {
+  //   income += incomeData[key];
+  // }
 
 
 
@@ -58,7 +58,7 @@ export default function Dashboard() {
                       <h6 className="">Users</h6>
                       <h3 className="mb-2 number-font">
                         <CountUp
-                          end={allusers?.length}
+                          end="500"
                           separator=","
                           start={0}
                           duration={2}
@@ -89,7 +89,7 @@ export default function Dashboard() {
                       <h6 className="">Orders</h6>
                       <h3 className="mb-2 number-font">
                         <CountUp
-                          end={allOrderDetail?.length}
+                          end="500"
                           separator=","
                           start={0}
                           duration={2}
@@ -121,7 +121,7 @@ export default function Dashboard() {
                       <h3 className="mb-2 number-font">
                         $
                         <CountUp
-                          end={income}
+                          end="500"
                           separator=","
                           start={0}
                           duration={2.94}
@@ -152,7 +152,7 @@ export default function Dashboard() {
                       <h6 className="">Plans</h6>
                       <h3 className="mb-2 number-font">
                         <CountUp
-                          end={plans?.length}
+                          end="500"
                           separator=","
                           start={0}
                           duration={2.94}

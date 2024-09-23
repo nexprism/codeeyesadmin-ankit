@@ -62,6 +62,18 @@ export const MENUITEMS = [
       },
     ],
   },
+  {
+    Items: [
+      {
+        path: `/news`,
+        icon: "News",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "News",
+      },
+    ],
+  },
   // {
   //   Items: [
   //     {

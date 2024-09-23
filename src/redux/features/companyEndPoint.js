@@ -93,6 +93,34 @@ export const companyendPoints = catalogueSlice.injectEndpoints({
                 method: "DELETE",
             })
         }),
+        getNews: builder.query({
+            query: () => `/all-news`
+        }),
+        getSingleNews: builder.query({
+            query: (blogCategoryId) => `/get-news/${blogCategoryId}`
+        }),
+        addNews: builder.mutation({
+            query: (blogCategoryData) => ({
+                url: `/add-news`,
+                method: "POST",
+                body: blogCategoryData
+            })
+        }),
+        editNews: builder.mutation({
+            query: ({ blogCategoryData, blogCategoryId }) => ({
+                url: `/edit-news/${blogCategoryId}`,
+                method: "PUT",
+                body: blogCategoryData
+            })
+        }),
+        deleteNews: builder.mutation({
+            query: (blogCategoryId) => ({
+                url: `/delete-news/${blogCategoryId}`,
+                method: "DELETE",
+            })
+        }),
+
+
 
 
 
@@ -131,4 +159,4 @@ export const companyendPoints = catalogueSlice.injectEndpoints({
     })
 })
 
-export const { useGetAllCompaniesQuery, useGetBlogTagsQuery, useGetBlogTagsIdQuery, useEditBlogTagsMutation, useDeleteBlogTagsMutation, useGetBlogCategoriesQuery, useGetSingleBlogCategoriesQuery, useAddBlogCategoriesMutation, useEditBlogCategoriesMutation, useDeleteBlogCategoriesMutation, useGetBlogQuery, useDeleteBlogMutation, useAddBlogMutation, useGetSingleBlogQuery, useEditBlogMutation, useGetAllPlansQuery, useGetSinglePlanQuery, useEditPlanMutation, useAddPlanMutation, useDeletPlanMutation, useGetSingleContactUsQuery, useAddBlogTagsMutation } = companyendPoints
+export const { useGetNewsQuery, useGetSingleNewsQuery, useAddNewsMutation, useEditNewsMutation, useDeleteNewsMutation, useGetAllCompaniesQuery, useGetBlogTagsQuery, useGetBlogTagsIdQuery, useEditBlogTagsMutation, useDeleteBlogTagsMutation, useGetBlogCategoriesQuery, useGetSingleBlogCategoriesQuery, useAddBlogCategoriesMutation, useEditBlogCategoriesMutation, useDeleteBlogCategoriesMutation, useGetBlogQuery, useDeleteBlogMutation, useAddBlogMutation, useGetSingleBlogQuery, useEditBlogMutation, useGetAllPlansQuery, useGetSinglePlanQuery, useEditPlanMutation, useAddPlanMutation, useDeletPlanMutation, useGetSingleContactUsQuery, useAddBlogTagsMutation } = companyendPoints

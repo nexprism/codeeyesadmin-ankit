@@ -15,6 +15,10 @@ import AddBlogs from "../components/blogs/AddBlogs";
 import { Edit } from "@mui/icons-material";
 import EditBlogs from "../components/blogs/EditBlogs";
 import ViewBlogs from "../components/blogs/ViewBlogs";
+import News from "../components/news/News";
+import AddNews from "../components/news/AddNews";
+import EditNews from "../components/news/EditNews";
+import ViewNews from "../components/news/ViewNews";
 
 export const RouterData = [
   { path: `${import.meta.env.BASE_URL}/dashboard`, element: <Dashboard /> },
@@ -25,6 +29,14 @@ export const RouterData = [
   { path: `${import.meta.env.BASE_URL}/add-blog`, element: <AddBlogs /> },
   { path: `${import.meta.env.BASE_URL}/view-blog/:id`, element: <ViewBlogs /> },
   { path: `${import.meta.env.BASE_URL}/edit-blog/:id`, element: <EditBlogs /> },
+
+
+  { path: `${import.meta.env.BASE_URL}/news`, element: <News /> },
+  { path: `${import.meta.env.BASE_URL}/add-news`, element: <AddNews /> },
+  { path: `${import.meta.env.BASE_URL}/edit-news/:id`, element: <EditNews /> },
+  { path: `${import.meta.env.BASE_URL}/view-news/:id`, element: <ViewNews /> },
+  
+
 
 
 
