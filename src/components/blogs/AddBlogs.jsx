@@ -50,30 +50,30 @@ export default function AddBlogs() {
         onSubmit: async (values) => {
             const formData = new FormData();
             Object.entries(values).forEach(([key, value]) => {
-                if (key === 'tags') {
+                if (key === 'tags' && Array.isArray(value)) {
                     value.forEach(tag => {
                         formData.append('tags', tag.label);
-                    })
-                } else if (key === 'category') {
+                    });
+                } else if (key === 'category' && Array.isArray(value)) {
                     value.forEach(cate => {
                         formData.append('category', cate.value);
-                    })
-                }
-                else {
+                    });
+                } else {
                     formData.append(key, value);
                 }
             });
             try {
                 const response = await addBlog(formData);
                 if (response?.data?.http_status_code === 201) {
-                    refetch()
-                    navigate(`/blog`)
-                    toast.success(response.data.message)
+                    refetch();
+                    navigate(`/blog`);
+                    toast.success(response.data.message);
                 }
             } catch (error) {
                 console.error(error);
             }
         },
+
     });
 
 
