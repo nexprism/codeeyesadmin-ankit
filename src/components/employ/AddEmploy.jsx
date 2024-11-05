@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import React from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { useAddBlogTagsMutation } from '../../redux/features/companyEndPoint';
+import { useAddBlogTagsMutation, useGetBlogTagsQuery } from '../../redux/features/companyEndPoint';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/slices/allModalSlice';
 import { useSelector } from 'react-redux';
