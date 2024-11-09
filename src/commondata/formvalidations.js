@@ -37,3 +37,13 @@ export const AddHomePageValidation = Yup.object().shape({
     about_us_image: Yup.string().required("This field is required"),
     abour_us_btn_text: Yup.string().required("This field is required")
 })
+export const TextTestimonialValidation = Yup.object().shape({
+    title: Yup.string().required("This field is required"),
+    name: Yup.string().required("This field is required"),
+    image_url: Yup.string().required("This field is required"),
+    description: Yup.string().required("This field is required")
+})
+export const VideoTestimonialValidation = Yup.object().shape({
+    title: Yup.string().required("This field is required"),
+    video_url: Yup.string().required("This field is required"),
+})

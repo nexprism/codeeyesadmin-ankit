@@ -1,16 +1,15 @@
 export function getCompanyList() {
-  return `/orders`
+  return `/orders`;
 }
 
-
 export function getEmploylist() {
-  return `/users`
+  return `/users`;
 }
 
 export function getHomePage() {
-  return `/home-page`
+  return `/home-page`;
 }
 
 export function getPlans() {
-  return `/plans`
+  return `/plans`;
 }

@@ -19,6 +19,8 @@ import { openModal } from "../redux/slices/allModalSlice";
 import toast from "react-hot-toast";
 import { useGetAllEmployQuery } from "../redux/features/employEndPoints";
 import { useDeleteBlogCategoriesMutation, useDeleteBlogTagsMutation, useGetBlogCategoriesQuery, useGetBlogTagsQuery } from "../redux/features/companyEndPoint";
+import { useLocation } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 
 export default function BlogCategoryDataTable() {
@@ -27,7 +29,21 @@ export default function BlogCategoryDataTable() {
     const [pageSize, setPageSize] = useState(10);
     const [searchTerm, setSearchTerm] = useState("");
     const dispatch = useDispatch();
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetBlogCategoriesQuery();
+
+
+    const [organization, setOrganization] = useState("");
+
+    const location = useLocation();
+    const org = Cookies.get("organization")
+
+    useEffect(() => {
+
+        if (org) {
+            setOrganization(org);
+        }
+    }, [location]);
+
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetBlogCategoriesQuery(organization);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteBlogCategoriesMutation()
 
     const handleDelete = async (row) => {

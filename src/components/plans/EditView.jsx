@@ -9,7 +9,9 @@ import toast from 'react-hot-toast';
 
 export default function EditPlan() {
     const { id } = useParams();
+
     const naviagte = useNavigate()
+
     const { data, isLoading, refetch, isSuccess } = useGetSinglePlanQuery(id);
     const singlePlan = data?.data || null;
 

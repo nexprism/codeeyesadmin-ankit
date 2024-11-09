@@ -10,7 +10,6 @@ export const MENUITEMS = [
         type: "link",
         active: false,
         title: "Dashboard",
-        title: "Dashboard",
       },
     ],
   },
@@ -18,7 +17,7 @@ export const MENUITEMS = [
     Items: [
       {
         path: `/contact-us`,
-        icon: "Contact Us",
+        icon: "phone-call",
         viewPath: ``,
         type: "link",
         active: false,
@@ -30,7 +29,7 @@ export const MENUITEMS = [
     Items: [
       {
         path: `/blog-tags`,
-        icon: "Blog Tags",
+        icon: "tag",
         viewPath: ``,
         type: "link",
         active: false,
@@ -42,7 +41,7 @@ export const MENUITEMS = [
     Items: [
       {
         path: `/blog-categories`,
-        icon: "Blog Category",
+        icon: "folder",
         viewPath: ``,
         type: "link",
         active: false,
@@ -54,7 +53,7 @@ export const MENUITEMS = [
     Items: [
       {
         path: `/blog`,
-        icon: "Blog",
+        icon: "book-open",
         viewPath: ``,
         type: "link",
         active: false,
@@ -66,7 +65,7 @@ export const MENUITEMS = [
     Items: [
       {
         path: `/news`,
-        icon: "News",
+        icon: "globe",
         viewPath: ``,
         type: "link",
         active: false,
@@ -74,41 +73,100 @@ export const MENUITEMS = [
       },
     ],
   },
-  // {
-  //   Items: [
-  //     {
-  //       path: `${getPlans()}`,
-  //       icon: "Plans",
-  //       viewPath: ``,
-  //       type: "link",
-  //       active: false,
-  //       title: "Plans",
-  //     },
-  //   ],
-  // },
-  // {
-  //   Items: [
-  //     {
-  //       path: '',
-  //       icon: "Crediantials",
-  //       viewPath: ``,
-  //       type: "button",
-  //       active: false,
-  //       title: "Credential",
-  //     },
-  //   ],
-  // },
-  // {
-  //   Items: [
-  //     {
-  //       path: `${getHomePage()}`,
-  //       icon: "Home Page",
-  //       viewPath: ``,
-  //       type: "link",
-  //       active: false,
-  //       title: "Home Page",
-  //     },
-  //   ],
-  // },
-]
-
+  {
+    Items: [
+      {
+        path: `/logos`,
+        icon: "grid",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Client Logos",
+      },
+    ],
+  },
+  {
+    Items: [
+      {
+        path: `/text-testimonials`,
+        icon: "align-justify",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Text Testimonials",
+      },
+    ],
+  },
+  {
+    Items: [
+      {
+        path: `/video-testimonials`,
+        icon: "video",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Video Testimonials",
+      },
+    ],
+  },
+  {
+    Items: [
+      {
+        path: `/home-logos`,
+        icon: "image",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Home Logos",
+      },
+    ],
+  },
+  {
+    Items: [
+      {
+        path: `/services`,
+        icon: "settings",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Services",
+      },
+    ],
+  },
+  {
+    Items: [
+      {
+        path: `/portfolios`,
+        icon: "briefcase",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Portfolios",
+      },
+    ],
+  },
+  {
+    Items: [
+      {
+        path: `/email-footer`,
+        icon: "mail",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Email Footer",
+      },
+    ],
+  },
+  {
+    Items: [
+      {
+        path: `/our-team`,
+        icon: "user",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Our Team",
+      },
+    ],
+  },
+];

@@ -11,6 +11,7 @@ import { publicRequest } from "../../utils/baseApi";
 import toast, { ToastBar } from "react-hot-toast";
 import { loginSuccess } from "../../redux/slices/authSlice";
 import { useLoginEndPointMutation } from "../../redux/features/AuthenticationEndPoints";
+import Cookies from "js-cookie"
 
 const initialValues = {
   email: "",
@@ -40,6 +41,7 @@ function Authlogin() {
             RouteChange()
             setLoader(false)
             toast.success(res.data.message)
+            Cookies.set("organization", "everything_globel")
             dispatch(loginSuccess(res.data.data));
           }
         } catch (error) {
