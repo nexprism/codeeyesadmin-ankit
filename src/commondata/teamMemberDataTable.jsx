@@ -18,14 +18,14 @@ export default function TeamMemberDataTable() {
     const [organization, setOrganization] = useState("");
     const location = useLocation();
 
-    useEffect(() => {
-        const org = Cookies.get("organization");
-        if (org) {
-            setOrganization(org);
-        }
-    }, [location]);
+    // useEffect(() => {
+    const org = Cookies.get("organization");
+    //     if (org) {
+    //         setOrganization(org);
+    //     }
+    // }, [location]);
 
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllOurTeamQuery(organization);
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllOurTeamQuery(org);
     const [deleteTeamMember, { isLoading: loadingDelete }] = useDeleteOurTeamMutation();
 
     const handleDelete = async (row) => {

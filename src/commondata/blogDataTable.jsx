@@ -22,15 +22,10 @@ export default function BlogDataTable() {
 
   const location = useLocation();
 
-  useEffect(() => {
-    const org = Cookies.get("organization")
+  const org = Cookies.get("organization")
 
-    if (org) {
-      setOrganization(org);
-    }
-  }, [location]);
 
-  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetBlogQuery(organization);
+  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetBlogQuery(org);
   const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteBlogMutation();
 
   const handleDelete = async (row) => {

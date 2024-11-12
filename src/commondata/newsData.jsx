@@ -33,16 +33,9 @@ export default function NewsDataTable() {
 
   const location = useLocation();
 
-  useEffect(() => {
+  const org = Cookies.get("organization")
 
-    const org = Cookies.get("organization")
-
-    if (org) {
-      setOrganization(org);
-    }
-  }, [navigate]);
-
-  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetNewsQuery(organization);
+  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetNewsQuery(org);
   const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteNewsMutation();
 
   const handleDelete = async (row) => {

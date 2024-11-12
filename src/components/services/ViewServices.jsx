@@ -21,7 +21,8 @@ export default function ViewServices() {
 
   const initialValues = {
     title: "",
-    service: ""
+    service: "",
+    banner_image: ""
   };
 
   const { values, errors, handleBlur, touched, handleChange, handleSubmit, resetForm, setFieldValue, setFieldTouched, validateForm } = useFormik({
@@ -45,6 +46,7 @@ export default function ViewServices() {
 
   useEffect(() => {
     setFieldValue("title", single?.title);
+    setFieldValue("service", single?.service);
     setFieldValue("banner_image", single?.banner_image);
   }, [isSuccess]);
 
@@ -82,6 +84,25 @@ export default function ViewServices() {
                     // value={values.banner_image}
                     />
                     {errors.service && touched.service ? <p className={`error`}>{errors.service}</p> : null}
+                  </Form.Group>
+                </Row>
+
+                <Row className="mb-4">
+                  <Form.Group as={Col} md="4">
+                    <Form.Label>
+                      Banner Image (JPG,JPEG,PNG,2MB Size)
+                      <span className="required_icon">*</span>
+                    </Form.Label>
+                    <Form.Control
+                      type="file"
+                      name="banner_image"
+                      accept=".jpg,.jpeg,.png,.webp"
+                      onChange={(e) => setFieldValue("banner_image", e.target.files[0])}
+                      onBlur={handleBlur}
+                      disabled
+                    // value={values.banner_image}
+                    />
+                    {errors.banner_image && touched.banner_image ? <p className={`error`}>{errors.banner_image}</p> : null}
                   </Form.Group>
                 </Row>
 

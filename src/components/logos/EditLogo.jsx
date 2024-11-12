@@ -45,7 +45,7 @@ export default function EditLogo() {
         const response = await addBlog({ blogCategoryId: id, blogCategoryData: formData });
         if (response?.data?.http_status_code === 200) {
           refetch();
-          navigate(`/logo`);
+          navigate(`/logos`);
           toast.success(response.data.message);
         }
       } catch (error) {

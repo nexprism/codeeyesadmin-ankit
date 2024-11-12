@@ -25,14 +25,14 @@ export default function ServiceDataTable() {
 
     const location = useLocation();
 
-    useEffect(() => {
-        const org = Cookies.get("organization")
+    // useEffect(() => {
+    const org = Cookies.get("organization")
 
-        if (org) {
-            setOrganization(org);
-        }
-    }, [location]);
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllServicesQuery(organization);
+    //     if (org) {
+    //         setOrganization(org);
+    //     }
+    // }, [location]);
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllServicesQuery(org);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteServicesMutation();
 
     const handleDelete = async (row) => {

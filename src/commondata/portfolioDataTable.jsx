@@ -25,14 +25,15 @@ export default function PortFolioDataTable() {
 
     const location = useLocation();
 
-    useEffect(() => {
-        const org = Cookies.get("organization")
+    // useEffect(() => {
+    const org = Cookies.get("organization")
 
-        if (org) {
-            setOrganization(org);
-        }
-    }, [location]);
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllPortfolioQuery(organization);
+    //     if (org) {
+    //         setOrganization(org);
+    //     }
+    // }, [location]);
+
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllPortfolioQuery(org);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeletePortfolioMutation();
 
     const handleDelete = async (row) => {

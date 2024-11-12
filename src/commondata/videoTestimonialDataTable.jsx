@@ -20,14 +20,15 @@ export default function VideoTestimonialsDataTable() {
 
     const location = useLocation();
 
-    useEffect(() => {
-        const org = Cookies.get("organization")
+    // useEffect(() => {
+    const org = Cookies.get("organization")
 
-        if (org) {
-            setOrganization(org);
-        }
-    }, [location]);
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllVideoTestimonialQuery(organization);
+    //     if (org) {
+    //         setOrganization(org);
+    //     }
+    // }, [location]);
+
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllVideoTestimonialQuery(org);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteVideoTestimonialMutation();
 
     const handleDelete = async (row) => {

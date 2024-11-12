@@ -228,7 +228,7 @@ const Sidebar = () => {
     document.querySelector(".app")?.classList.remove("sidenav-toggled-open");
   }
 
-  const [organization, setOrganization] = useState();
+  const [organization, setOrganization] = useState(Cookies.get("organization") || "everything_globel");
 
   useEffect(() => {
     // Check if "organization" exists in the URL, and initialize if not

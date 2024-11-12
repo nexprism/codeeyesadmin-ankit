@@ -26,8 +26,10 @@ export default function AddServices() {
     initialValues: initialValues,
     validationSchema: "",
     onSubmit: async (values) => {
-      console.log("values", values);
-
+      // const formData = new FormData();
+      // Object.entries(values).forEach(([key, value]) => {
+      //   formData.append(key, value);
+      // });
       try {
         const response = await addBlog(values);
         if (response?.data?.http_status_code === 201) {
@@ -83,6 +85,22 @@ export default function AddServices() {
                     </Form.Group>
                   </Col>
                 </Row>
+                {/* <Row className="mb-4">
+                  <Form.Group as={Col} md="4">
+                    <Form.Label>
+                      Banner Image (JPG,JPEG,PNG,2MB Size)
+                      <span className="required_icon">*</span>
+                    </Form.Label>
+                    <Form.Control
+                      type="file"
+                      name="banner_image"
+                      accept=".jpg,.jpeg,.png,.webp"
+                      onChange={(e) => setFieldValue("banner_image", e.target.files[0])}
+                      onBlur={handleBlur}
+                    />
+                    {errors.banner_image && touched.banner_image ? <p className={`error`}>{errors.banner_image}</p> : null}
+                  </Form.Group>
+                </Row> */}
 
                 <Row className="mt-4">
                   <Button type="submit" className="btn-primary mx-auto w-auto">

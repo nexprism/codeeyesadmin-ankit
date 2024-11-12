@@ -35,15 +35,9 @@ export default function EmployDataTable() {
 
   const location = useLocation();
 
-  useEffect(() => {
 
-    const org = Cookies.get("organization")
 
-    if (org) {
-      setOrganization(org);
-    }
-
-  }, [location]);
+  const org = Cookies.get("organization")
 
   const {
     data,
@@ -53,7 +47,8 @@ export default function EmployDataTable() {
     isFetching,
     isSuccess,
     refetch,
-  } = useGetBlogTagsQuery(organization);
+  } = useGetBlogTagsQuery(org);
+
   const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteBlogTagsMutation();
 
   const handleDelete = async (row) => {

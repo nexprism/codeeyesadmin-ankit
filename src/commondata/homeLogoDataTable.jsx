@@ -20,18 +20,20 @@ export default function HomeLogosDataTable() {
     const [searchTerm, setSearchTerm] = useState("");
     const dispatch = useDispatch();
 
-    const [organization, setOrganization] = useState("");
+    // const [organization, setOrganization] = useState("");
 
-    const location = useLocation();
+    // const location = useLocation();
 
-    useEffect(() => {
-        const org = Cookies.get("organization")
+    const org = Cookies.get("organization");
 
-        if (org) {
-            setOrganization(org);
-        }
-    }, [location]);
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllHomeLogoQuery(organization);
+    // useEffect(() => {
+    //     const org = Cookies.get("organization")
+
+    //     if (org) {
+    //         setOrganization(org);
+    //     }
+    // }, [location]);
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllHomeLogoQuery(org);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteHomeLogoMutation();
 
     const handleDelete = async (row) => {

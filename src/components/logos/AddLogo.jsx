@@ -38,7 +38,7 @@ export default function Addlogo() {
         const response = await addBlog({ blogCategoryData: formData, organization });
         if (response?.data?.http_status_code === 201) {
           refetch();
-          navigate(`/logo`);
+          navigate(`/logos`);
           toast.success(response.data.message);
         }
       } catch (error) {

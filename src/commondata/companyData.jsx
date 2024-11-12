@@ -21,17 +21,11 @@ export default function CompanyDataTable() {
 
   const location = useLocation();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const org = Cookies.get("organization")
+  const org = Cookies.get("organization")
 
-    if (org) {
-      setOrganization(org);
-    }
-
-  }, [location]);
-
-  const { data, isError, error, isLoading, isFetching, isSuccess } = useGetAllCompaniesQuery(organization);
+  const { data, isError, error, isLoading, isFetching, isSuccess } = useGetAllCompaniesQuery(org);
 
   if (isLoading || isFetching) {
     return <Loader />;

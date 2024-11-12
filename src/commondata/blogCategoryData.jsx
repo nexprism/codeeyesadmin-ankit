@@ -36,14 +36,14 @@ export default function BlogCategoryDataTable() {
     const location = useLocation();
     const org = Cookies.get("organization")
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (org) {
-            setOrganization(org);
-        }
-    }, [location]);
+    //     if (org) {
+    //         setOrganization(org);
+    //     }
+    // }, [location]);
 
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetBlogCategoriesQuery(organization);
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetBlogCategoriesQuery(org);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteBlogCategoriesMutation()
 
     const handleDelete = async (row) => {

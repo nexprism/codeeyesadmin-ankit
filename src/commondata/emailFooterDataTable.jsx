@@ -26,14 +26,15 @@ export default function EmailFooterDataTable() {
 
     const location = useLocation();
 
-    useEffect(() => {
-        const org = Cookies.get("organization")
+    // useEffect(() => {
+    const org = Cookies.get("organization")
 
-        if (org) {
-            setOrganization(org);
-        }
-    }, [location]);
-    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllEmailFooterQuery(organization);
+    //     if (org) {
+    //         setOrganization(org);
+    //     }
+    // }, [location]);
+
+    const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllEmailFooterQuery(org);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteEmailFooterMutation();
 
     const handleDelete = async (row) => {

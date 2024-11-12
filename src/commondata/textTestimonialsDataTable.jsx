@@ -24,14 +24,14 @@ export default function TextTestimonialsDataTable() {
 
   const location = useLocation();
 
-  useEffect(() => {
-    const org = Cookies.get("organization")
+  // useEffect(() => {
+  const org = Cookies.get("organization")
 
-    if (org) {
-      setOrganization(org);
-    }
-  }, [location]);
-  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllTextTestimonialQuery(organization);
+  //   if (org) {
+  //     setOrganization(org);
+  //   }
+  // }, [location]);
+  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllTextTestimonialQuery(org);
   const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteTextTestimonialMutation();
 
   const handleDelete = async (row) => {

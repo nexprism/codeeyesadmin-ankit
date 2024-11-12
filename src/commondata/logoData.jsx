@@ -23,14 +23,14 @@ export default function LogosDataTable() {
 
   const location = useLocation();
 
-  useEffect(() => {
-    const org = Cookies.get("organization")
+  // useEffect(() => {
+  const org = Cookies.get("organization")
 
-    if (org) {
-      setOrganization(org);
-    }
-  }, [location]);
-  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetLogoQuery(organization);
+  //   if (org) {
+  //     setOrganization(org);
+  //   }
+  // }, [location]);
+  const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetLogoQuery(org);
   const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteLogoMutation();
 
   const handleDelete = async (row) => {

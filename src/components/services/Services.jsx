@@ -1,10 +1,7 @@
 import React from "react";
 import { Row, Card, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import NewsDataTable from "../../commondata/newsData";
 import PageHeader from "../../layouts/layoutcomponents/pageheader";
-import LogosDataTable from "../../commondata/logoData";
-import HomeLogosDataTable from "../../commondata/homeLogoDataTable";
 import ServiceDataTable from "../../commondata/serviceDataTable";
 
 export default function Services() {
