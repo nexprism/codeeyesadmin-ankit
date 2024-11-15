@@ -7,7 +7,7 @@ import PageHeader from "../../layouts/layoutcomponents/pageheader";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAddHomeLogoMutation, useGetAllHomeLogoQuery } from "../../redux/features/homeLogoEndPoint";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 import Loader from "../../layouts/layoutcomponents/loader";
 import CreatableSelect from "react-select/creatable";
 import TextArea from "antd/es/input/TextArea";
@@ -15,13 +15,12 @@ import { useAddPortfolioMutation, useGetAllPortfolioQuery } from "../../redux/fe
 export default function AddPortfolio() {
   const navigate = useNavigate();
 
-  const org = Cookies.get("organization")
+  const org = Cookies.get("organization");
   const { refetch } = useGetAllPortfolioQuery(org);
 
   const [addBlog, { isLoading: loading }] = useAddPortfolioMutation();
   const { data: tags } = useGetBlogTagsQuery(org);
   const tagData = tags?.data;
-
 
   const { data: category } = useGetBlogCategoriesQuery(org);
   const categoryData = category?.data;
@@ -29,9 +28,9 @@ export default function AddPortfolio() {
   const tagOptions =
     Array.isArray(tagData) && tagData
       ? tagData.map((tag) => ({
-        value: tag?.id,
-        label: tag?.name,
-      }))
+          value: tag?.id,
+          label: tag?.name,
+        }))
       : [];
 
   const initialValues = {
@@ -42,7 +41,8 @@ export default function AddPortfolio() {
     category: "",
     content: "",
     banner_image: [],
-    organizationId: org
+    pictures: [],
+    organizationId: org,
   };
 
   const { values, errors, handleBlur, touched, handleChange, handleSubmit, resetForm, setFieldValue, setFieldTouched, validateForm } = useFormik({
@@ -63,8 +63,11 @@ export default function AddPortfolio() {
           Array.from(value).forEach((file) => {
             formData.append("banner_image", file);
           });
-        }
-        else {
+        } else if (key === "pictures" && value instanceof FileList) {
+          Array.from(value).forEach((file) => {
+            formData.append("pictures", file);
+          });
+        } else {
           formData.append(key, value);
         }
       });
@@ -83,9 +86,7 @@ export default function AddPortfolio() {
 
   return (
     <>
-      {
-        loading && <Loader />
-      }
+      {loading && <Loader />}
       <Row>
         <Col>
           <PageHeader titles="Portfolio" active="Add portfolio" items={["Home"]} links={["/dashboard"]} />
@@ -98,7 +99,7 @@ export default function AddPortfolio() {
               <Form onSubmit={handleSubmit}>
                 <Row className="mb-4">
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Title <span className="required_icon">*</span>
                       </Form.Label>
@@ -107,26 +108,19 @@ export default function AddPortfolio() {
                     </Form.Group>
                   </Col>
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Banner Image (JPG,JPEG,PNG,2MB Size)
                         <span className="required_icon">*</span>
                       </Form.Label>
-                      <Form.Control
-                        type="file"
-                        name="banner_image"
-                        accept=".jpg,.jpeg,.png,.webp"
-                        onChange={(e) => setFieldValue("banner_image", e.target.files)}
-                        onBlur={handleBlur}
-                        multiple
-                      />
+                      <Form.Control type="file" name="banner_image" accept=".jpg,.jpeg,.png,.webp" onChange={(e) => setFieldValue("banner_image", e.target.files)} onBlur={handleBlur} />
                       {errors.banner_image && touched.banner_image ? <p className={`error`}>{errors.banner_image}</p> : null}
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row className="mb-4">
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Sub Title <span className="required_icon">*</span>
                       </Form.Label>
@@ -135,7 +129,7 @@ export default function AddPortfolio() {
                     </Form.Group>
                   </Col>
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Client <span className="required_icon">*</span>
                       </Form.Label>
@@ -143,11 +137,10 @@ export default function AddPortfolio() {
                       {errors.client && touched.client ? <p className={`error`}>{errors.client}</p> : null}
                     </Form.Group>
                   </Col>
-
                 </Row>
                 <Row className="mb-4">
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Tags <span className="required_icon">*</span>
                       </Form.Label>
@@ -166,7 +159,7 @@ export default function AddPortfolio() {
                     </Form.Group>
                   </Col>
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Category <span className="required_icon">*</span>
                       </Form.Label>
@@ -192,18 +185,24 @@ export default function AddPortfolio() {
                   </Col>
                 </Row>
                 <Row>
-                  <Form.Group>
-                    <Form.Label>
-                      Content <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      name="content"
-                      value={values.content}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  </Form.Group>
+                  <Col as={Col} md={6}>
+                    <Form.Group>
+                      <Form.Label>
+                        Content <span className="text-danger">*</span>
+                      </Form.Label>
+                      <Form.Control as="textarea" name="content" value={values.content} onChange={handleChange} onBlur={handleBlur} />
+                    </Form.Group>
+                  </Col>
+                  <Col as={Col} md={6}>
+                    <Form.Group>
+                      <Form.Label>
+                        Portfolio Images (JPG,JPEG,PNG,2MB Size multiple)
+                        <span className="required_icon">*</span>
+                      </Form.Label>
+                      <Form.Control type="file" name="pictures" accept=".jpg,.jpeg,.png,.webp" onChange={(e) => setFieldValue("pictures", e.target.files)} onBlur={handleBlur} multiple />
+                      {errors.pictures && touched.pictures ? <p className={`error`}>{errors.pictures}</p> : null}
+                    </Form.Group>
+                  </Col>
                 </Row>
 
                 <Row className="mt-4">
@@ -215,7 +214,7 @@ export default function AddPortfolio() {
             </Card.Body>
           </Card>
         </Col>
-      </Row >
+      </Row>
     </>
   );
 }

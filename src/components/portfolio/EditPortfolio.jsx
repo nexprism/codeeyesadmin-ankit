@@ -2,26 +2,20 @@ import React, { useEffect } from "react";
 import { Card, Col, Form, Row, Button } from "react-bootstrap";
 import "suneditor/dist/css/suneditor.min.css";
 import { useFormik } from "formik";
-import {
-  useEditLogoMutation,
-  useGetBlogCategoriesQuery,
-  useGetBlogTagsQuery,
-  useGetNewsQuery,
-  useGetSingleLogoQuery,
-} from "../../redux/features/companyEndPoint";
+import { useEditLogoMutation, useGetBlogCategoriesQuery, useGetBlogTagsQuery, useGetNewsQuery, useGetSingleLogoQuery } from "../../redux/features/companyEndPoint";
 import PageHeader from "../../layouts/layoutcomponents/pageheader";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useEditHomeLogoMutation, useGetAllHomeLogoQuery, useGetHomeLogoQuery, } from "../../redux/features/homeLogoEndPoint";
+import { useEditHomeLogoMutation, useGetAllHomeLogoQuery, useGetHomeLogoQuery } from "../../redux/features/homeLogoEndPoint";
 import Loader from "../../layouts/layoutcomponents/loader";
 import { useEditPortfolioMutation, useGetAllPortfolioQuery, useGetPortfolioQuery } from "../../redux/features/portfolioEndPoint";
 import CreatableSelect from "react-select/creatable";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
 export default function EditPortFolio() {
   const { id } = useParams();
 
-  const org = Cookies.get("organization")
+  const org = Cookies.get("organization");
   const { data: category } = useGetBlogCategoriesQuery(org);
   const categoryData = category?.data;
 
@@ -33,9 +27,7 @@ export default function EditPortFolio() {
 
   const single = data?.data || "";
 
-
   const [addBlog, { isLoading: loadingData }] = useEditPortfolioMutation();
-
 
   const { data: tags } = useGetBlogTagsQuery(org);
   const tagData = tags?.data;
@@ -43,9 +35,9 @@ export default function EditPortFolio() {
   const tagOptions =
     Array.isArray(tagData) && tagData
       ? tagData.map((tag) => ({
-        value: tag?.id,
-        label: tag?.name,
-      }))
+          value: tag?.id,
+          label: tag?.name,
+        }))
       : [];
 
   const initialValues = {
@@ -56,6 +48,7 @@ export default function EditPortFolio() {
     category: "",
     content: "",
     banner_image: [],
+    pictures: [],
   };
 
   const { values, errors, handleBlur, touched, handleChange, handleSubmit, resetForm, setFieldValue, setFieldTouched, validateForm } = useFormik({
@@ -72,13 +65,15 @@ export default function EditPortFolio() {
           value.forEach((cate) => {
             formData.append("category", cate.value);
           });
-        }
-        else if (key === "banner_image" && value instanceof FileList) {
+        } else if (key === "banner_image" && value instanceof FileList) {
           Array.from(value).forEach((file) => {
             formData.append("banner_image", file);
           });
-        }
-        else {
+        } else if (key === "pictures" && value instanceof FileList) {
+          Array.from(value).forEach((file) => {
+            formData.append("pictures", file);
+          });
+        } else {
           formData.append(key, value);
         }
       });
@@ -86,7 +81,7 @@ export default function EditPortFolio() {
         const response = await addBlog({ id: id, formData: formData });
         if (response?.data?.http_status_code === 200) {
           refetch();
-          singleblog()
+          singleblog();
           navigate(`/portfolios`);
           toast.success(response.data.message);
         }
@@ -103,18 +98,16 @@ export default function EditPortFolio() {
     setFieldValue("category", single?.category?.id);
     setFieldValue("content", single?.content);
     setFieldValue("banner_image", single?.banner_image);
+    setFieldValue("pictures", single?.pictures);
     if (single?.tags) {
-      const prefilledTags = tagOptions.filter(tag => single.tags.includes(tag.value));
+      const prefilledTags = tagOptions.filter((tag) => single.tags.includes(tag.value));
       setFieldValue("tags", prefilledTags);
     }
-
   }, [isSuccess]);
 
   return (
     <>
-      {
-        loadingSingle && <Loader /> || loadingData && <Loader />
-      }
+      {(loadingSingle && <Loader />) || (loadingData && <Loader />)}
       <Row>
         <Col>
           <PageHeader titles="Portfolio" active="Edit portfolio" items={["Home"]} links={["/dashboard"]} />
@@ -127,7 +120,7 @@ export default function EditPortFolio() {
               <Form onSubmit={handleSubmit}>
                 <Row className="mb-4">
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Title <span className="required_icon">*</span>
                       </Form.Label>
@@ -136,26 +129,19 @@ export default function EditPortFolio() {
                     </Form.Group>
                   </Col>
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Banner Image (JPG,JPEG,PNG,2MB Size)
                         <span className="required_icon">*</span>
                       </Form.Label>
-                      <Form.Control
-                        type="file"
-                        name="banner_image"
-                        accept=".jpg,.jpeg,.png,.webp"
-                        onChange={(e) => setFieldValue("banner_image", e.target.files)}
-                        onBlur={handleBlur}
-                        multiple
-                      />
+                      <Form.Control type="file" name="banner_image" accept=".jpg,.jpeg,.png,.webp" onChange={(e) => setFieldValue("banner_image", e.target.files)} onBlur={handleBlur}  />
                       {errors.banner_image && touched.banner_image ? <p className={`error`}>{errors.banner_image}</p> : null}
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row className="mb-4">
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Sub Title <span className="required_icon">*</span>
                       </Form.Label>
@@ -164,7 +150,7 @@ export default function EditPortFolio() {
                     </Form.Group>
                   </Col>
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Client <span className="required_icon">*</span>
                       </Form.Label>
@@ -172,11 +158,10 @@ export default function EditPortFolio() {
                       {errors.client && touched.client ? <p className={`error`}>{errors.client}</p> : null}
                     </Form.Group>
                   </Col>
-
                 </Row>
                 <Row className="mb-4">
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Tags <span className="required_icon">*</span>
                       </Form.Label>
@@ -195,7 +180,7 @@ export default function EditPortFolio() {
                     </Form.Group>
                   </Col>
                   <Col as={Col} md={6}>
-                    <Form.Group >
+                    <Form.Group>
                       <Form.Label>
                         Category <span className="required_icon">*</span>
                       </Form.Label>
@@ -221,18 +206,24 @@ export default function EditPortFolio() {
                   </Col>
                 </Row>
                 <Row>
-                  <Form.Group>
-                    <Form.Label>
-                      Content <span className="text-danger">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      name="content"
-                      value={values.content}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  </Form.Group>
+                  <Col as={Col} md={6}>
+                    <Form.Group>
+                      <Form.Label>
+                        Content <span className="text-danger">*</span>
+                      </Form.Label>
+                      <Form.Control as="textarea" name="content" value={values.content} onChange={handleChange} onBlur={handleBlur} />
+                    </Form.Group>
+                  </Col>
+                  <Col as={Col} md={6}>
+                    <Form.Group>
+                      <Form.Label>
+                        Pictures (JPG,JPEG,PNG,2MB Size multiple)
+                        <span className="required_icon">*</span>
+                      </Form.Label>
+                      <Form.Control type="file" name="pictures" accept=".jpg,.jpeg,.png,.webp" onChange={(e) => setFieldValue("pictures", e.target.files)} onBlur={handleBlur} multiple />
+                      {errors.pictures && touched.pictures ? <p className={`error`}>{errors.pictures}</p> : null}
+                    </Form.Group>
+                  </Col>
                 </Row>
 
                 <Row className="mt-4">
@@ -244,7 +235,7 @@ export default function EditPortFolio() {
             </Card.Body>
           </Card>
         </Col>
-      </Row >
+      </Row>
     </>
   );
 }
