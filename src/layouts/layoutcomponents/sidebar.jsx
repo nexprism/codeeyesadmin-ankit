@@ -228,33 +228,35 @@ const Sidebar = () => {
     document.querySelector(".app")?.classList.remove("sidenav-toggled-open");
   }
 
-  const [organization, setOrganization] = useState(Cookies.get("organization") || "everything_globel");
+  const [organization, setOrganization] = useState(Cookies.get("organization") );
 
   useEffect(() => {
     // Check if "organization" exists in the URL, and initialize if not
     const url = new URL(window.location.href);
     const orgParam = url.searchParams.get("organization");
 
-    if (orgParam) {
+    // if (orgParam) {
       setOrganization(orgParam);
-    } else {
+      
+    // } else {
       // Set a default organization if none exists
-      const defaultOrg = "everything_globel";
-      setOrganization(defaultOrg);
-      url.searchParams.set("organization", defaultOrg);
-      window.history.replaceState({}, "", url.toString());
-    }
+      // const defaultOrg = "everything_globel";
+      // setOrganization(defaultOrg);
+      // url.searchParams.set("organization", defaultOrg);
+      // window.history.replaceState({}, "", url.toString());
+    // }
   }, []);
 
   const handleOrganizationChange = (event) => {
     const newOrg = event.target.value;
+    console.log(`Organization${newOrg}`)
     setOrganization(newOrg);
 
     Cookies.set("organization", newOrg);
 
     navigate(`?organization=${newOrg}`, { replace: true });
 
-    setNewOrg(newOrg)
+    setOrganization(newOrg)
     loadingBlogCategories()
     loadingBlogTags()
     loadingBlogs()

@@ -41,6 +41,10 @@ export default function AddBlogs() {
     meta_keywords: "",
     og_tag: "",
     schema_markup: "",
+    authorName:"",
+    authorRole:"",
+    authorProfile:"",
+    authorDescription:"",
   };
 
   const { values, errors, handleBlur, touched, handleChange, handleSubmit, resetForm, setFieldValue, setFieldTouched, validateForm } = useFormik({
@@ -63,9 +67,11 @@ export default function AddBlogs() {
       });
       try {
         const response = await addBlog({ blogCategoryData: formData, organization });
+        console.log(response);
         if (response?.data?.http_status_code === 201) {
-          refetch();
+          
           navigate(`/blog`);
+          refetch();
           toast.success(response.data.message);
         }
       } catch (error) {
@@ -147,7 +153,48 @@ export default function AddBlogs() {
                     </Form.Select>
                     {errors.category && touched.category ? <p className={`error`}>{errors.category}</p> : null}
                   </Form.Group>
+                  <Form.Group as={Col} md="4">
+                    <Form.Label>
+                      Author Name <span className="required_icon">*</span>
+                    </Form.Label>
+                    <Form.Control title="text" name="authorName" onChange={handleChange} onBlur={handleBlur} value={values.authorName} />
+                    {errors.authorName && touched.authorName ? <p className={`error`}>{errors.authorName}</p> : null}
+                  </Form.Group>
+                  <Form.Group as={Col} md="4">
+                    <Form.Label>
+                      Author Role <span className="required_icon">*</span>
+                    </Form.Label>
+                    <Form.Control title="text" name="authorRole" onChange={handleChange} onBlur={handleBlur} value={values.authorRole} />
+                    {errors.authorRole && touched.authorRole ? <p className={`error`}>{errors.authorRole}</p> : null}
+                  </Form.Group>
+                  <Form.Group as={Col} md="4">
+                    <Form.Label>
+                    Author Profile (JPG,JPEG,PNG,2MB Size) <span className="required_icon">*</span>
+                    </Form.Label>
+                    <Form.Control title="text" name="authorProfile" onChange={handleChange} onBlur={handleBlur} value={values.authorProfile} />
+                    {errors.authorProfile && touched.authorProfile ? <p className={`error`}>{errors.authorProfile}</p> : null}
+                  </Form.Group>
+                 
+                  
                 </Row>
+                
+
+                <Row className="mb-6">
+                  <Form.Group as={Col} md="12">
+                    <Form.Label>
+                      Author Description <span className="required_icon">*</span>
+                    </Form.Label>
+                    <SunEditor
+                      name="authorDescription"
+                      onChange={(authorDescription) => setFieldValue("authorDescription", authorDescription)}
+                      onBlur={() => setFieldTouched("authorDescription", true)}
+                      setContents={values.authorDescription}
+                      setOptions={options_for_sunEditor}
+                    />
+                    {errors.authorDescription && touched.authorDescription ? <p className={`error`}>{errors.authorDescription}</p> : null}
+                  </Form.Group>
+                </Row>
+
                 <Row className="mb-6">
                   <Form.Group as={Col} md="12">
                     <Form.Label>Tags</Form.Label>

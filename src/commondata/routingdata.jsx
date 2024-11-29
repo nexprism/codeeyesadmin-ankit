@@ -51,6 +51,7 @@ import OurTeam from "../components/our-teem/OurTeam.jsx";
 import AddOurTeam from "../components/our-teem/AddOurTeam.jsx";
 import EditOurTeam from "../components/our-teem/EditOurTeam.jsx";
 import ViewOurTeam from "../components/our-teem/ViewOurTeam.jsx";
+import Comments from "../components/comments/Comments.jsx";
 
 export const RouterData = [
   { path: `${import.meta.env.BASE_URL}/dashboard`, element: <Dashboard /> },
@@ -120,4 +121,7 @@ export const RouterData = [
   { path: `${import.meta.env.BASE_URL}/add-our-team/`, element: <AddOurTeam /> },
   { path: `${import.meta.env.BASE_URL}/edit-our-team/:id`, element: <EditOurTeam /> },
   { path: `${import.meta.env.BASE_URL}/view-our-team/:id`, element: <ViewOurTeam /> },
+
+  //Comments
+  { path: `${import.meta.env.BASE_URL}/comments`, element: <Comments /> },
 ];

@@ -36,6 +36,7 @@ export default function EmailFooterDataTable() {
 
     const { data, isError, error, isLoading, isFetching, isSuccess, refetch } = useGetAllEmailFooterQuery(org);
     const [deleteBlogData, { isLoading: loadingDelete }] = useDeleteEmailFooterMutation();
+    // console.log(data);
 
     const handleDelete = async (row) => {
         const resp = await deleteBlogData(row);
@@ -102,6 +103,7 @@ export default function EmailFooterDataTable() {
         ];
 
         const postsData = Array.isArray(data?.data) && data?.data.length > 0 ? data?.data : [];
+        // console.log(postsData);
 
         const filteredData = postsData?.filter((item) => {
             const searchTermLower = searchTerm.toLowerCase();
@@ -112,7 +114,8 @@ export default function EmailFooterDataTable() {
         const totalPages = Math.ceil(filteredData?.length / itemsPerPage);
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = filteredData?.slice(indexOfFirstItem, indexOfLastItem);
+        const currentItems = filteredData;
+        console.log(currentItems)
 
         const displayPages = () => {
             const pageButtons = [];
@@ -190,7 +193,7 @@ export default function EmailFooterDataTable() {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <DataTable data={currentItems} columns={COLUMNS} striped />
+                    <DataTable data={postsData} columns={COLUMNS} striped />
                     <div className="pagination_wrapper">
                         <ul className="pagination">
                             <li>

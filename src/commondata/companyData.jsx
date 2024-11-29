@@ -5,7 +5,7 @@ import Loader from "../layouts/layoutcomponents/loader";
 import DataTable from "react-data-table-component";
 import { openModal } from "../redux/slices/allModalSlice";
 import toast from "react-hot-toast";
-import { useGetAllCompaniesQuery } from "../redux/features/companyEndPoint";
+import { useGetAllCompaniesQuery,useDeleteContactUsMutation } from "../redux/features/companyEndPoint";
 import moment from "moment/moment";
 import { Link, useLocation } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -18,14 +18,35 @@ export default function CompanyDataTable() {
   const dispatch = useDispatch();
 
   const [organization, setOrganization] = useState("");
+  const [deleteContactUs, { isLoading: loadingDelete }] = useDeleteContactUsMutation()
+  const org = Cookies.get("organization")
+
+  const { data, isError, error, isLoading, isFetching, isSuccess,refetch } = useGetAllCompaniesQuery(org);
 
   const location = useLocation();
 
-  // useEffect(() => {
+  const handleDelete = async (row) => {
+    console.log("row", row);
 
-  const org = Cookies.get("organization")
+   
+    console.log("contact us deleted")
+    const resp = await fetch(`http://localhost:8000/api/admin/delete-contact-us/${row}`,{
+      method: 'DELETE',
+      headers: {
+        
+        'Content-Type': 'application/json',
+      },
+    })
+    console.log(resp)
+    if (resp?.status === 200) {
+      refetch()
+      console.log("fetching again...")
+      toast.success(resp.data.message)
+  }
+    
+  };
 
-  const { data, isError, error, isLoading, isFetching, isSuccess } = useGetAllCompaniesQuery(org);
+
 
   if (isLoading || isFetching) {
     return <Loader />;
@@ -57,8 +78,13 @@ export default function CompanyDataTable() {
         cell: (row) => row?.createdAt,
       },
       {
+        name: "Option",
+        sortable: true,
+        cell: (row) => row?.option,
+      },
+      {
         name: "Action",
-        cell: (row) => (
+        cell: (row) => (<>
           <div className="action_icon_wrapper">
             <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>}>
               <Link to={`/view-contact/${row?.id}`}>
@@ -68,7 +94,13 @@ export default function CompanyDataTable() {
                 </Button>
               </Link>
             </OverlayTrigger>
+            <OverlayTrigger key="bottom" placement="bottom" overlay={<Tooltip id="tooltip-bottom">Delete</Tooltip>}>
+                <Button variant="danger" onClick={() => handleDelete(row?._id)}>
+                  <i className="fe fe-trash text-light"></i>
+                </Button>
+              </OverlayTrigger>
           </div>
+          </>
         ),
       },
     ];
@@ -162,6 +194,7 @@ export default function CompanyDataTable() {
               </Form.Group>
             </Col>
           </Row>
+          {console.log(currentItems)}
           <DataTable data={currentItems} columns={COLUMNS} striped />
           <div className="pagination_wrapper">
             <ul className="pagination">

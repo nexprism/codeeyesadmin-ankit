@@ -169,4 +169,16 @@ export const MENUITEMS = [
       },
     ],
   },
+  {
+    Items: [
+      {
+        path: `/comments`,
+        icon: "align-justify",
+        viewPath: ``,
+        type: "link",
+        active: false,
+        title: "Comments",
+      },
+    ],
+  }
 ];

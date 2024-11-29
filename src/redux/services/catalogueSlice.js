@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_BASE_URL } from '../../utils/config';
+import { API_BASE_URL,LOCAL_API_BASE_URL } from '../../utils/config';
 import toast from 'react-hot-toast';
 
 

@@ -65,6 +65,12 @@ export const companyendPoints = catalogueSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    deleteContactUs: builder.mutation({
+      query: (contactUsId) => ({
+        url: `/delete-contact-us/${contactUsId}`,
+        method: "DELETE",
+      }),
+    }),
 
     getBlog: builder.query({
       query: (organizationId) => `/get-blog/?organizationId=${organizationId}`,
@@ -191,6 +197,7 @@ export const {
   useAddBlogCategoriesMutation,
   useEditBlogCategoriesMutation,
   useDeleteBlogCategoriesMutation,
+  useDeleteContactUsMutation,
   useGetBlogQuery,
   useDeleteBlogMutation,
   useAddBlogMutation,

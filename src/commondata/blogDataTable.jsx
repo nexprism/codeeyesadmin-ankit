@@ -75,6 +75,26 @@ export default function BlogDataTable() {
         cell: (row) => (row.createdAt ? moment(row.createdAt).format("DD-MM-YYYY [at] hh:mm A") : null),
       },
       {
+        name: "AuthorName",
+        sortable: true,
+        cell: (row) => (row?.authorName),
+      },
+      {
+        name: "AuthorRole",
+        sortable: true,
+        cell: (row) => (row?.authorRole),
+      },
+      {
+        name: "AuthorProfile",
+        sortable: true,
+        cell: (row) => (row?.authorProfile),
+      },
+      {
+        name: "AuthorDescription",
+        sortable: true,
+        cell: (row) => (row?.authorDescription),
+      },
+      {
         name: "Action",
         cell: (row) => (
           <>
