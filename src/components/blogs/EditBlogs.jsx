@@ -20,6 +20,7 @@ export default function EditBlogs() {
     const tagData = tags?.data
     const { data: category } = useGetBlogCategoriesQuery()
     const categoryData = category?.data
+    console.log(category?.data)
 
     const { refetch } = useGetBlogQuery()
 
@@ -90,7 +91,7 @@ export default function EditBlogs() {
         value: category?.id,
         label: category?.name
     })) : [];
-
+// console.log(categoryData)
 
     useEffect(() => {
         setFieldValue("title", single?.title)
@@ -151,7 +152,7 @@ export default function EditBlogs() {
                                     <Form.Group as={Col} md="4">
                                         <Form.Label>Category <span className="required_icon">*</span></Form.Label>
                                         <Form.Select
-                                            // options={options}
+                                            options={options}
                                             name="category"
                                             value={values.category}
                                             onChange={handleChange}

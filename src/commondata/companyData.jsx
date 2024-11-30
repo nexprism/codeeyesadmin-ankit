@@ -30,7 +30,7 @@ export default function CompanyDataTable() {
 
    
     console.log("contact us deleted")
-    const resp = await fetch(`http://localhost:8000/api/admin/delete-contact-us/${row}`,{
+    const resp = await fetch(`https://codeyes-server.vercel.app/api/admin/delete-contact-us/${row}`,{
       method: 'DELETE',
       headers: {
         

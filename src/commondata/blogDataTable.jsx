@@ -84,16 +84,16 @@ export default function BlogDataTable() {
         sortable: true,
         cell: (row) => (row?.authorRole),
       },
-      {
-        name: "AuthorProfile",
-        sortable: true,
-        cell: (row) => (row?.authorProfile),
-      },
-      {
-        name: "AuthorDescription",
-        sortable: true,
-        cell: (row) => (row?.authorDescription),
-      },
+      // {
+      //   name: "AuthorProfile",
+      //   sortable: true,
+      //   cell: (row) => (row?.authorProfile),
+      // },
+      // {
+      //   name: "AuthorDescription",
+      //   sortable: true,
+      //   cell: (row) => (row?.authorDescription),
+      // },
       {
         name: "Action",
         cell: (row) => (

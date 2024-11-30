@@ -45,12 +45,14 @@ export default function AddBlogs() {
     authorRole:"",
     authorProfile:"",
     authorDescription:"",
+    
   };
 
-  const { values, errors, handleBlur, touched, handleChange, handleSubmit, resetForm, setFieldValue, setFieldTouched, validateForm } = useFormik({
+  const { values, errors, handleBlur, touched, handleChange, handleSubmit, resetForm, setFieldValue,setFieldValue2, setFieldTouched, validateForm } = useFormik({
     initialValues: initialValues,
     validationSchema: "",
     onSubmit: async (values) => {
+      console.log(values);
       const formData = new FormData();
       Object.entries(values).forEach(([key, value]) => {
         if (key === "tags" && Array.isArray(value)) {
@@ -66,6 +68,7 @@ export default function AddBlogs() {
         }
       });
       try {
+        console.log(formData)
         const response = await addBlog({ blogCategoryData: formData, organization });
         console.log(response);
         if (response?.data?.http_status_code === 201) {
@@ -130,12 +133,13 @@ export default function AddBlogs() {
                     />
                     {errors.banner_image && touched.banner_image ? <p className={`error`}>{errors.banner_image}</p> : null}
                   </Form.Group>
+                  
                   <Form.Group as={Col} md="4">
                     <Form.Label>
                       Category <span className="required_icon">*</span>
                     </Form.Label>
                     <Form.Select
-                      // options={options}
+                      options={options}
                       name="category"
                       value={values.category}
                       onChange={handleChange}
@@ -169,9 +173,20 @@ export default function AddBlogs() {
                   </Form.Group>
                   <Form.Group as={Col} md="4">
                     <Form.Label>
-                    Author Profile (JPG,JPEG,PNG,2MB Size) <span className="required_icon">*</span>
+                      Author Profile (JPG,JPEG,PNG,2MB Size)
+                      <span className="required_icon">*</span>
                     </Form.Label>
-                    <Form.Control title="text" name="authorProfile" onChange={handleChange} onBlur={handleBlur} value={values.authorProfile} />
+                    <Form.Control
+                      type="file"
+                      name="authorProfile"
+                      
+                      accept=".jpg,.jpeg,.png,.webp"
+                      onChange={(e) => {
+                        setFieldValue("authorProfile", e.target.files[0]);
+                      }}
+                      onBlur={handleBlur}
+                      // value={values.banner_image}
+                    />
                     {errors.authorProfile && touched.authorProfile ? <p className={`error`}>{errors.authorProfile}</p> : null}
                   </Form.Group>
                  
