@@ -61,6 +61,7 @@ export default function BlogDataTable() {
         name: "Image",
         sortable: true,
         cell: (row) => {
+          console.log(row.banner_image)
           return <img src={row.banner_image} alt={row.title} style={{ width: "100px", height: "auto" }} />;
         },
       },
