@@ -178,6 +178,18 @@ export const companyendPoints = catalogueSlice.injectEndpoints({
         body: blogCategoryData,
       }),
     }),
+    deleteComment: builder.mutation({
+      query: (blogCategoryId) => ({
+        url: `/delete-comment/${blogCategoryId}`,
+        method: "DELETE",
+      }),
+    }),
+    deleteReply: builder.mutation({
+      query: ({ cId, rId }) => ({
+        url: `/delete-reply/${cId}/${rId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -215,4 +227,6 @@ export const {
   useDeleteLogoMutation,
   useGetSingleLogoQuery,
   useEditLogoMutation,
+  useDeleteCommentMutation,
+  useDeleteReplyMutation,
 } = companyendPoints;
