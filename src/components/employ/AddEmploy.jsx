@@ -28,6 +28,7 @@ export default function AddEmploy() {
       setOrganization(org);
     }
   }, [location]);
+  console.log(organization)
 
   const [AddBlogTags, isLoading] = useAddBlogTagsMutation();
   const { refetch } = useGetBlogTagsQuery();
@@ -37,7 +38,8 @@ export default function AddEmploy() {
     validationSchema: "",
     onSubmit: async (values) => {
       try {
-        const response = await AddBlogTags({blogData:values, organization});
+        // console.log("adding blog tag" + organization)
+        const response = await AddBlogTags({blogData:values, organization });
         if (response?.data?.http_status_code === 201) {
           dispatch(closeModal());
           refetch();

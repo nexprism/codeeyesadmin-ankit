@@ -4,14 +4,16 @@ import { catalogueSlice } from "../services/catalogueSlice";
 export const companyendPoints = catalogueSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllCompanies: builder.query({
-      query: (organizationId) => `/get-all-contact-us/?organizationId=${organizationId}`,
+      query: (organizationId) =>
+        `/get-all-contact-us/?organizationId=${organizationId}`,
     }),
     getSingleContactUs: builder.query({
       query: (contactId) => `/get-contact-us/${contactId}`,
     }),
 
     getBlogTags: builder.query({
-      query: (organizationId) => `/get-blog-tag/?organizationId=${organizationId}`,
+      query: (organizationId) =>
+        `/get-blog-tag/?organizationId=${organizationId}`,
     }),
 
     addBlogTags: builder.mutation({
@@ -40,7 +42,8 @@ export const companyendPoints = catalogueSlice.injectEndpoints({
     }),
 
     getBlogCategories: builder.query({
-      query: (organizationId) => `/get-blog-category/?organizationId=${organizationId}`,
+      query: (organizationId) =>
+        `/get-blog-category/?organizationId=${organizationId}`,
     }),
     getSingleBlogCategories: builder.query({
       query: (blogCategoryId) => `/get-blog-category/${blogCategoryId}`,
@@ -160,11 +163,12 @@ export const companyendPoints = catalogueSlice.injectEndpoints({
       }),
     }),
     getLogo: builder.query({
-      query: (organizationId) => `/all-client-logo/?organizationId=${organizationId}`,
+      query: (organizationId) =>
+        `/all-client-logo/?organizationId=${organizationId}`,
     }),
     deleteLogo: builder.mutation({
       query: (blogCategoryId) => ({
-        url: `/delete-logo/${blogCategoryId}`,
+        url: `/delete-client-logo/${blogCategoryId}`,
         method: "DELETE",
       }),
     }),

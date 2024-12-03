@@ -39,9 +39,11 @@ export default function AddNews() {
       try {
         const response = await addBlog({ blogCategoryData: formData, organization });
         if (response?.data?.http_status_code === 201) {
-          refetch();
-          navigate(`/logo`);
+          
+          navigate(`/news`);
+          
           toast.success(response.data.message);
+          refetch();
         }
       } catch (error) {
         console.error(error);
