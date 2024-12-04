@@ -334,7 +334,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     console.log("callled -------------", organization);
-    // Check if the "organization" parameter exists in the URL
+    // Check if the "organization" parameter exists in the URLh
     const queryParams = new URLSearchParams(window.location.search);
     const orgParam = queryParams.get("organization");
 
