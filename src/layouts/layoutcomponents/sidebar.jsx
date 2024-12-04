@@ -5,7 +5,7 @@ import { Imagesdata } from "../../commondata/commonimages";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/slices/allModalSlice";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 import { useGetAllCompaniesQuery, useGetBlogCategoriesQuery, useGetBlogQuery, useGetBlogTagsQuery, useGetLogoQuery, useGetNewsQuery } from "../../redux/features/companyEndPoint";
 import { useGetAllTextTestimonialQuery } from "../../redux/features/textTestimonialEndPoingt";
 import { useGetAllVideoTestimonialQuery } from "../../redux/features/videoTestimonialEndPoint";
@@ -17,7 +17,7 @@ import { useGetAllOurTeamQuery } from "../../redux/features/ourTeamEndPoint";
 
 let history = [];
 const Sidebar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -25,8 +25,7 @@ const Sidebar = () => {
   const getUrl = location.pathname;
   const updatedUrl = getUrl.replace(id, "");
 
-  const orgz = Cookies.get("organization")
-
+  const orgz = Cookies.get("organization");
 
   //all api
   const { refetch: loadingLogo } = useGetLogoQuery(orgz);
@@ -42,10 +41,6 @@ const Sidebar = () => {
   const { refetch: loadingPortFolio } = useGetAllPortfolioQuery(orgz);
   const { refetch: loadingFooterEmail } = useGetAllEmailFooterQuery(orgz);
   const { refetch: loadingOurTeam } = useGetAllOurTeamQuery(orgz);
-
-
-
-
 
   useEffect(() => {
     history.push(location.pathname);
@@ -228,52 +223,118 @@ const Sidebar = () => {
     document.querySelector(".app")?.classList.remove("sidenav-toggled-open");
   }
 
-  const [organization, setOrganization] = useState(Cookies.get("organization") );
+  // const [organization, setOrganization] = useState(Cookies.get("organization"));
+
+  // useEffect(() => {
+  //   // Check if "organization" exists in the URL, and initialize if not
+  //   const url = new URL(window.location.href);
+  //   const orgParam = url.searchParams.get("organization");
+
+  //   // if (orgParam) {
+  //     setOrganization(orgParam);
+
+  //   // } else {
+  //     // Set a default organization if none exists
+  //     // const defaultOrg = "everything_globel";
+  //     // setOrganization(defaultOrg);
+  //     // url.searchParams.set("organization", defaultOrg);
+  //     // window.history.replaceState({}, "", url.toString());
+  //   // }
+  // }, []);
+
+  // const handleOrganizationChange = (event) => {
+  //   const newOrg = event.target.value;
+  //   console.log(`Organization${newOrg}`)
+  //   setOrganization(newOrg);
+
+  //   Cookies.set("organization", newOrg);
+
+  //   navigate(`?organization=${newOrg}`, { replace: true });
+
+  //   setOrganization(newOrg)
+  //   loadingBlogCategories()
+  //   loadingBlogTags()
+  //   loadingBlogs()
+  //   loadingContactUs()
+  //   loadingNews()
+  //   loadingLogo()
+  //   loadingTextTestimonial()
+  //   loadingVideoTestimonial()
+  //   loadingHomeLogo()
+  //   loadingServices()
+  //   loadingFooterEmail()
+  //   loadingPortFolio()
+  //   loadingOurTeam()
+  // };
+
+  // useEffect(() => {
+  //   // Check if the "organization" parameter exists in the URL
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   const orgParam = queryParams.get("organization");
+
+  //   if (orgParam) {
+  //     // Set the organization state from the URL parameter if it exists
+  //     setOrganization(orgParam);
+  //   } else {
+  //     // If not, handle based on the pathname
+  //     const segments = location.pathname.split("/").filter(Boolean);
+
+  //     if (segments.length === 1) {
+  //       setOrganization("everything_globel");
+
+  //       // Update the URL with the default organization
+  //       const url = new URL(window.location.href);
+  //       url.searchParams.set("organization", "everything_globel");
+  //       window.history.pushState({}, "", url.toString());
+  //     }
+  //   }
+  // }, [location.pathname]);
+
+  const [organization, setOrganization] = useState(Cookies.get("organization") || "everything_globel");
 
   useEffect(() => {
     // Check if "organization" exists in the URL, and initialize if not
     const url = new URL(window.location.href);
     const orgParam = url.searchParams.get("organization");
-
-    // if (orgParam) {
+    console.log("orgParam -------->>>>>>>>", orgParam);
+    if (orgParam) {
       setOrganization(orgParam);
-      
-    // } else {
+    } else {
       // Set a default organization if none exists
-      // const defaultOrg = "everything_globel";
-      // setOrganization(defaultOrg);
-      // url.searchParams.set("organization", defaultOrg);
-      // window.history.replaceState({}, "", url.toString());
-    // }
+      const defaultOrg = Cookies.get("organization") || "everything_globel";
+      setOrganization(defaultOrg);
+      url.searchParams.set("organization", defaultOrg);
+      window.history.replaceState({}, "", url.toString());
+    }
   }, []);
 
   const handleOrganizationChange = (event) => {
     const newOrg = event.target.value;
-    console.log(`Organization${newOrg}`)
-    setOrganization(newOrg);
-
     Cookies.set("organization", newOrg);
+    console.log(newOrg);
+    setOrganization(newOrg);
 
     navigate(`?organization=${newOrg}`, { replace: true });
 
-    setOrganization(newOrg)
-    loadingBlogCategories()
-    loadingBlogTags()
-    loadingBlogs()
-    loadingContactUs()
-    loadingNews()
-    loadingLogo()
-    loadingTextTestimonial()
-    loadingVideoTestimonial()
-    loadingHomeLogo()
-    loadingServices()
-    loadingFooterEmail()
-    loadingPortFolio()
-    loadingOurTeam()
+    // setNewOrg(newOrg);
+    loadingBlogCategories(newOrg);
+    loadingBlogTags(newOrg);
+    loadingBlogs(newOrg);
+    loadingContactUs(newOrg);
+    loadingNews(newOrg);
+    loadingLogo(newOrg);
+    loadingTextTestimonial(newOrg);
+    loadingVideoTestimonial(newOrg);
+    loadingHomeLogo(newOrg);
+    loadingServices(newOrg);
+    loadingFooterEmail(newOrg);
+    loadingPortFolio(newOrg);
+    loadingOurTeam(newOrg);
   };
 
   useEffect(() => {
-    // Check if the "organization" parameter exists in the URL
+    console.log("callled -------------", organization);
+    // Check if the "organization" parameter exists in the URLh
     const queryParams = new URLSearchParams(window.location.search);
     const orgParam = queryParams.get("organization");
 
@@ -289,7 +350,8 @@ const Sidebar = () => {
 
         // Update the URL with the default organization
         const url = new URL(window.location.href);
-        url.searchParams.set("organization", "everything_globel");
+        const defaultOrg = Cookies.get("organization") || "everything_globel";
+        url.searchParams.set("organization", defaultOrg);
         window.history.pushState({}, "", url.toString());
       }
     }
@@ -330,7 +392,7 @@ const Sidebar = () => {
               >
                 <select
                   className="mt-6"
-                  value={organization}
+                  value={Cookies.get("organization") || "everything_globel"}
                   onChange={handleOrganizationChange}
                   style={{
                     width: "80%",
@@ -355,118 +417,118 @@ const Sidebar = () => {
                   <Fragment key={Math.random()}>
                     {levelone && levelone.Items && levelone.Items.length > 0
                       ? levelone.Items.map((menuItem, i) => (
-                        <li className={`slide ${menuItem.active ? "is-expanded" : ""}`} key={i}>
-                          {menuItem.type === "link" ? (
-                            <Link
-                              to={menuItem.path + "/"}
-                              className={`side-menu__item ${menuItem.selected ? "active" : ""}`}
-                              onClick={() => {
-                                setNavActive(menuItem);
-                                toggletNavActive(menuItem);
-                              }}
-                            >
-                              <i className={`side-menu__icon fe fe-${menuItem.icon}`}></i>
-                              <span className="side-menu__label">{menuItem.title}</span>
-                              {menuItem.badge ? <label className={`${menuItem.badge} side-badge`}>{menuItem.badgetxt}</label> : ""}
-                            </Link>
-                          ) : (
-                            <Link
-                              className={`side-menu__item ${menuItem.selected ? "active" : ""}`}
-                              onClick={() => {
-                                dispatch(openModal({ componentName: "PaypalCrediantial" }));
-                              }}
-                            >
-                              <i className={`side-menu__icon fe fe-${menuItem.icon}`}></i>
-                              <span className="side-menu__label">{menuItem.title}</span>
-                              {menuItem.badge ? <label className={`${menuItem.badge} side-badge`}>{menuItem.badgetxt}</label> : ""}
-                            </Link>
-                          )}
+                          <li className={`slide ${menuItem.active ? "is-expanded" : ""}`} key={i}>
+                            {menuItem.type === "link" ? (
+                              <Link
+                                to={menuItem.path + "/"}
+                                className={`side-menu__item ${menuItem.selected ? "active" : ""}`}
+                                onClick={() => {
+                                  setNavActive(menuItem);
+                                  toggletNavActive(menuItem);
+                                }}
+                              >
+                                <i className={`side-menu__icon fe fe-${menuItem.icon}`}></i>
+                                <span className="side-menu__label">{menuItem.title}</span>
+                                {menuItem.badge ? <label className={`${menuItem.badge} side-badge`}>{menuItem.badgetxt}</label> : ""}
+                              </Link>
+                            ) : (
+                              <Link
+                                className={`side-menu__item ${menuItem.selected ? "active" : ""}`}
+                                onClick={() => {
+                                  dispatch(openModal({ componentName: "PaypalCrediantial" }));
+                                }}
+                              >
+                                <i className={`side-menu__icon fe fe-${menuItem.icon}`}></i>
+                                <span className="side-menu__label">{menuItem.title}</span>
+                                {menuItem.badge ? <label className={`${menuItem.badge} side-badge`}>{menuItem.badgetxt}</label> : ""}
+                              </Link>
+                            )}
 
-                          {menuItem.type === "sub" ? (
-                            <Link
-                              to={menuItem.path + "/"}
-                              className={`side-menu__item ${menuItem.selected ? "active" : ""}`}
-                              onClick={(event) => {
-                                event.preventDefault();
-                                toggletNavActive(menuItem);
-                              }}
-                            >
-                              <i className={`side-menu__icon fe fe-${menuItem.icon}`}></i>
-                              <span className="side-menu__label">{menuItem.title}</span>
-                              {menuItem.badge ? <label className={`${menuItem.badge} side-badge`}>{menuItem.badgetxt}</label> : ""}
-                              <i className={`${menuItem.background} fa angle fa-angle-right `}></i>
-                            </Link>
-                          ) : (
-                            ""
-                          )}
-                          {menuItem.children ? (
-                            <ul
-                              className={`slide-menu ${menuItem.active ? "open" : " "}`}
-                              style={
-                                menuItem.active
-                                  ? {
-                                    opacity: 1,
-                                    transition: "opacity 500ms ease-in",
-                                    display: "block",
-                                  }
-                                  : { display: "none" }
-                              }
-                            >
-                              {menuItem.children.map((childrenItem, index) => {
-                                return (
-                                  <li key={index} className={`sub-slide ${childrenItem.active ? "is-expanded" : ""}`}>
-                                    {childrenItem.type === "sub" ? (
-                                      <Link
-                                        to="#"
-                                        className={`sub-side-menu__item ${childrenItem.selected ? "active" : "is-expanded"}`}
-                                        onClick={(event) => {
-                                          event.preventDefault();
-                                          toggletNavActive(childrenItem);
-                                        }}
-                                      >
-                                        <span className="sub-side-menu__label">{childrenItem.title}</span>
-                                        {childrenItem.active ? <i className="sub-angle  fa fa-angle-right"></i> : <i className="sub-angle fa fa-angle-right"></i>}
-                                      </Link>
-                                    ) : (
-                                      ""
-                                    )}
-                                    {childrenItem.type === "link" ? (
-                                      <Link to={childrenItem.path + "/"} className={`slide-item ${childrenItem.active ? "active" : "	 "}`} onClick={() => toggletNavActive(childrenItem)}>
-                                        {childrenItem.title}
-                                      </Link>
-                                    ) : (
-                                      ""
-                                    )}
-                                    {childrenItem.children ? (
-                                      <ul className={`sub-slide-menu ${menuItem.active ? "" : "open"}`} style={childrenItem.active ? { display: "block" } : { display: "none" }}>
-                                        {childrenItem.children.map((childrenSubItem, key) => (
-                                          <li key={key} className={`${childrenSubItem.active ? "is-expanded" : ""}`}>
-                                            {childrenSubItem.type === "link" ? (
-                                              <Link
-                                                to={childrenSubItem.path + "/"}
-                                                className={`sub-slide-item ${childrenSubItem.selected ? "active" : " "}`}
-                                                onClick={() => toggletNavActive(childrenSubItem)}
-                                              >
-                                                {childrenSubItem.title}
-                                              </Link>
-                                            ) : (
-                                              ""
-                                            )}
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    ) : (
-                                      ""
-                                    )}
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          ) : (
-                            ""
-                          )}
-                        </li>
-                      ))
+                            {menuItem.type === "sub" ? (
+                              <Link
+                                to={menuItem.path + "/"}
+                                className={`side-menu__item ${menuItem.selected ? "active" : ""}`}
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  toggletNavActive(menuItem);
+                                }}
+                              >
+                                <i className={`side-menu__icon fe fe-${menuItem.icon}`}></i>
+                                <span className="side-menu__label">{menuItem.title}</span>
+                                {menuItem.badge ? <label className={`${menuItem.badge} side-badge`}>{menuItem.badgetxt}</label> : ""}
+                                <i className={`${menuItem.background} fa angle fa-angle-right `}></i>
+                              </Link>
+                            ) : (
+                              ""
+                            )}
+                            {menuItem.children ? (
+                              <ul
+                                className={`slide-menu ${menuItem.active ? "open" : " "}`}
+                                style={
+                                  menuItem.active
+                                    ? {
+                                        opacity: 1,
+                                        transition: "opacity 500ms ease-in",
+                                        display: "block",
+                                      }
+                                    : { display: "none" }
+                                }
+                              >
+                                {menuItem.children.map((childrenItem, index) => {
+                                  return (
+                                    <li key={index} className={`sub-slide ${childrenItem.active ? "is-expanded" : ""}`}>
+                                      {childrenItem.type === "sub" ? (
+                                        <Link
+                                          to="#"
+                                          className={`sub-side-menu__item ${childrenItem.selected ? "active" : "is-expanded"}`}
+                                          onClick={(event) => {
+                                            event.preventDefault();
+                                            toggletNavActive(childrenItem);
+                                          }}
+                                        >
+                                          <span className="sub-side-menu__label">{childrenItem.title}</span>
+                                          {childrenItem.active ? <i className="sub-angle  fa fa-angle-right"></i> : <i className="sub-angle fa fa-angle-right"></i>}
+                                        </Link>
+                                      ) : (
+                                        ""
+                                      )}
+                                      {childrenItem.type === "link" ? (
+                                        <Link to={childrenItem.path + "/"} className={`slide-item ${childrenItem.active ? "active" : "	 "}`} onClick={() => toggletNavActive(childrenItem)}>
+                                          {childrenItem.title}
+                                        </Link>
+                                      ) : (
+                                        ""
+                                      )}
+                                      {childrenItem.children ? (
+                                        <ul className={`sub-slide-menu ${menuItem.active ? "" : "open"}`} style={childrenItem.active ? { display: "block" } : { display: "none" }}>
+                                          {childrenItem.children.map((childrenSubItem, key) => (
+                                            <li key={key} className={`${childrenSubItem.active ? "is-expanded" : ""}`}>
+                                              {childrenSubItem.type === "link" ? (
+                                                <Link
+                                                  to={childrenSubItem.path + "/"}
+                                                  className={`sub-slide-item ${childrenSubItem.selected ? "active" : " "}`}
+                                                  onClick={() => toggletNavActive(childrenSubItem)}
+                                                >
+                                                  {childrenSubItem.title}
+                                                </Link>
+                                              ) : (
+                                                ""
+                                              )}
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            ) : (
+                              ""
+                            )}
+                          </li>
+                        ))
                       : ""}
                   </Fragment>
                 ))}
