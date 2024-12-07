@@ -16,9 +16,12 @@ export default function AddBlogs() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const organization = searchParams.get("organization");
+  // console.log(organization)
   const { data: tags } = useGetBlogTagsQuery(organization);
+  // console.log(tags)
   const tagData = tags?.data;
   const { data: category } = useGetBlogCategoriesQuery(organization);
+  // console.log(category)
   const categoryData = category?.data;
 
 
@@ -68,7 +71,7 @@ export default function AddBlogs() {
         }
       });
       try {
-        console.log(formData)
+        // console.log(formData)
         const response = await addBlog({ blogCategoryData: formData, organization });
         console.log(response);
         if (response?.data?.http_status_code === 201) {
